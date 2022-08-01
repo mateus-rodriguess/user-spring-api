@@ -44,16 +44,15 @@ public class UserController {
     }
     @GetMapping
     public ResponseEntity<Page<UserModel>> getAllUser(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll(pageable));
     }
-    @GetMapping("/username/{username}")
-    public ResponseEntity getUsername(@PathVariable(value = "username") @NotNull String username){
+    @GetMapping("/user/query")
+    public ResponseEntity getUsername(@RequestParam String username){
         if (!username.isEmpty()){
             var userModelOptional = userService.existsByUsername(username);
 
             if (userModelOptional){
-                return ResponseEntity.status(HttpStatus.OK).body(userService.findByUsername(username).get());
+                return ResponseEntity.status(HttpStatus.OK).body(userService.findByUsername(username));
             }
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");

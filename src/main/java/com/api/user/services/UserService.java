@@ -5,7 +5,7 @@ import com.api.user.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,15 +18,16 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Transactional
     public UserModel save(UserModel userModel){
-        //userModel.setPassword(bCryptPasswordEncoder().encode(userModel.getPassword()));
+        userModel.setPassword(bCryptPasswordEncoder().encode(userModel.getPassword()));
         return userRepository.save(userModel);
     }
+
     public boolean existsByUsername(String username){
         return userRepository.existsByUsername(username);
     }
