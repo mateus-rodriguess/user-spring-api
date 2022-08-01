@@ -1,32 +1,35 @@
 package com.api.user.dtos;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class UserDto {
 
     @NotBlank
-    private String userName;
+    private String username;
     @NotBlank
-    private String passWord;
+    private String password;
     @NotBlank
     private String firstName;
     @NotBlank
     private String lastName;
-
-    public String getUserName() {
-        return userName;
+    @Email
+    @NotBlank
+    private String email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassWord(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -43,5 +46,13 @@ public class UserDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

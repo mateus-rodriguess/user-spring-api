@@ -1,15 +1,13 @@
 package com.api.user.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -22,13 +20,16 @@ public class UserModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(nullable = false, unique = true, length = 30)
-    private String userName;
-    @Column(nullable = false, length = 30)
-    private String passWord;
+    private String username;
+    @Column(nullable = false, length = 255)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
     @Column(nullable = false, length = 50)
     private String firstName;
     @Column(nullable = false, length = 50)
     private String lastName;
+    @Column(nullable = false, unique = true, length = 255)
+    private String email;
     @Column(updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -59,20 +60,20 @@ public class UserModel implements Serializable {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -89,5 +90,12 @@ public class UserModel implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
